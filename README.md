@@ -3,3 +3,5 @@ https://askubuntu.com/questions/1029117/unable-to-install-package-snap-package-h
 
 # router generator
 https://www.youtube.com/watch?v=FV5k56IJWsk
+# learn-flutter-development
+Fundermantal Flutter practices
