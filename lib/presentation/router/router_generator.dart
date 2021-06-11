@@ -1,6 +1,7 @@
-import 'package:app_name/presentation/dashboard.dart';
+import 'package:app_name/presentation/pages/dashboard.dart';
 import 'package:app_name/presentation/pages/error.dart';
 import 'package:app_name/presentation/pages/piano.dart';
+import 'package:app_name/presentation/pages/quize.dart';
 import 'package:app_name/presentation/router/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +11,11 @@ class RouterNavigator {
       case '/':
         return MaterialPageRoute<Dashboard>(builder: (context) => Dashboard());
 
-      case homePageRoute:
+      case dashboardPageRoute:
         return MaterialPageRoute<Dashboard>(builder: (context) => Dashboard());
+
+      case quizePageRoute:
+        return MaterialPageRoute<Quizzler>(builder: (context) => Quizzler());
 
       case pianoPageRoute:
         return MaterialPageRoute<XyloPhoneApp>(

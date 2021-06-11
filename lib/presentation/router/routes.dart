@@ -1,9 +1,7 @@
 const String pianoPageRoute = '/piano';
 
-const String homePageRoute = '/';
-
 const String dashboardPageRoute = '/dashboard';
 
-const String resetPinRoute = '/resetPin';
+const String quizePageRoute = '/quize';
 
 const String phoneSignupRoute = '/phoneSignup';
