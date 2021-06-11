@@ -23,6 +23,7 @@ class _XyloPhoneAppState extends State<XyloPhoneApp> {
       ),
       body: SafeArea(
         child: Container(
+          padding: EdgeInsets.only(top: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
