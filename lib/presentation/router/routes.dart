@@ -4,4 +4,8 @@ const String dashboardPageRoute = '/dashboard';
 
 const String quizePageRoute = '/quize';
 
-const String phoneSignupRoute = '/phoneSignup';
+const String calculatorPageRoute = '/calculator';
+
+const String resultPageRoute = '/result';
+
+const String rowColumPageRoute = '/rc';
