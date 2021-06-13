@@ -21,7 +21,7 @@ Expanded textWidget(String displayText, Color color) {
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: Text(
-            displayText,
+            displayText ?? 'no item found',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 25.0,
@@ -91,37 +91,19 @@ Card makeDashboardItem(
       ));
 }
 
-List bibleTrivia = [
-  'In what city was Jesus born? ',
-  'How many books are in the New Testament? ',
-  'What type of insect did John the Baptist eat in the desert? ',
-  'Who were the first apostles called to follow Jesus?',
-  'How many people did Jesus feed with five loaves of bread and two fish?',
-];
-
-List<bool> triviaAnswers = [
-  true, false, true, false, true
-  // 'Bethlehem',
-  // '27',
-  // 'Locusts',
-  // 'Peter and Andrew',
-  //  'about 5000 men',
-];
-
-List choices = [
-  'Bethlehem',
-  '36',
-  'Locusts',
-  'Peter and simon',
-  'about 5000 men',
-];
-
-List questionNo = [
-  'Question 1.',
-  'Question 2.',
-  'Question 3.',
-  'Question 4.',
-  'Question 5.',
-];
-
 List<Icon> scoreKeeper = [];
+
+// check icon when user selects right answer
+void correctAnswerWidget() {
+  return (scoreKeeper.add(
+    Icon(
+      Icons.check,
+      color: green,
+    ),
+  ));
+}
+
+// close icon when user selects wrong answer
+void wrongAnswerWidget() {
+  return (scoreKeeper.add(Icon(Icons.close, color: red)));
+}

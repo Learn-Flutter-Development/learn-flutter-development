@@ -1,6 +1,10 @@
 import 'package:app_name/application/theme/colors.dart';
+import 'package:app_name/presentation/model/quetion.dart';
 import 'package:app_name/presentation/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
+TriviaQuestion quiz = TriviaQuestion();
 
 class Quizzler extends StatefulWidget {
   Quizzler({Key key}) : super(key: key);
@@ -10,16 +14,40 @@ class Quizzler extends StatefulWidget {
 }
 
 class _QuizzlerState extends State<Quizzler> {
-  int triviaQuestionNo = 0;
-  int listLength = bibleTrivia.length;
+  int a;
+  void checkAnswer(bool userAnswer) {
+    ///get correct answer
+    bool correctAnswer = quiz.getQuestionAnswer();
+
+    if (quiz.completeQuize() == true) {
+      scoreKeeper = [];
+      showAlertDialog();
+    } else {
+      if (userAnswer == correctAnswer) {
+        setState(() {
+          correctAnswerWidget();
+          quiz.nextQuestion();
+          a = quiz.triviaScore();
+          print(quiz.triviaScore());
+        });
+      } else {
+        setState(() {
+          wrongAnswerWidget();
+          quiz.nextQuestion();
+          a = quiz.triviaScore();
+          print(quiz.triviaScore());
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: navyBlue,
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: green,
+          backgroundColor: blue4,
           title: Text(
             'Bible Trivia',
             style: TextStyle(
@@ -35,15 +63,15 @@ class _QuizzlerState extends State<Quizzler> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       textWidget(
-                        questionNo[triviaQuestionNo],
+                        quiz.getQuestionNo(),
                         white,
                       ),
                       textWidget(
-                        bibleTrivia[triviaQuestionNo],
+                        quiz.getQuestionText(),
                         white,
                       ),
                       textWidget(
-                        choices[triviaQuestionNo],
+                        quiz.getQuestionChoice(),
                         white,
                       ),
                       Expanded(
@@ -51,26 +79,7 @@ class _QuizzlerState extends State<Quizzler> {
                           padding: const EdgeInsets.all(10.0),
                           child: TextButton(
                             onPressed: () {
-                              bool correctAnswer =
-                                  triviaAnswers[triviaQuestionNo];
-                              if (correctAnswer == true) {
-                                setState(() {
-                                  scoreKeeper.add(
-                                    Icon(
-                                      Icons.check,
-                                      color: green,
-                                    ),
-                                  );
-
-                                  triviaQuestionNo++;
-                                });
-                              } else {
-                                setState(() {
-                                  scoreKeeper
-                                      .add(Icon(Icons.close, color: red));
-                                  triviaQuestionNo++;
-                                });
-                              }
+                              checkAnswer(true);
                             },
                             child: Text(
                               "True",
@@ -90,21 +99,7 @@ class _QuizzlerState extends State<Quizzler> {
                           padding: const EdgeInsets.all(10.0),
                           child: TextButton(
                             onPressed: () {
-                              bool correctAnswer =
-                                  triviaAnswers[triviaQuestionNo];
-                              if (correctAnswer == false) {
-                                setState(() {
-                                  scoreKeeper
-                                      .add(Icon(Icons.check, color: green));
-                                  triviaQuestionNo++;
-                                });
-                              } else {
-                                setState(() {
-                                  scoreKeeper
-                                      .add(Icon(Icons.close, color: red));
-                                  triviaQuestionNo++;
-                                });
-                              }
+                              checkAnswer(false);
                             },
                             child: Text(
                               'False',
@@ -121,5 +116,38 @@ class _QuizzlerState extends State<Quizzler> {
                       ),
                       Row(children: scoreKeeper)
                     ]))));
+  }
+
+  showAlertDialog() {
+    Alert(
+      context: context,
+      type: AlertType.success,
+      title: 'Level 1 Complete',
+      desc: 'Your score is $a',
+      buttons: [
+        DialogButton(
+          child: Text(
+            'Re-Try',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            quiz.reset();
+          },
+          width: 120,
+        ),
+        DialogButton(
+          child: Text(
+            'Next',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            quiz.reset();
+            Navigator.pop(context);
+          },
+          width: 120,
+        ),
+      ],
+    ).show();
   }
 }
